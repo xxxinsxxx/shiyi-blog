@@ -12,7 +12,7 @@
             </Avatar>
             <div class="text-center sm:text-left">
               <h1 class="text-2xl font-bold">Shiyi</h1>
-              <p class="text-muted-foreground">Frontend Developer & Designer</p>
+              <p class="text-muted-foreground">Frontend Developer</p>
             </div>
           </div>
         </Card>
@@ -176,26 +176,11 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Github, Twitter, FileText, Film, Plus } from 'lucide-vue-next'
+import movieData from '@/data/movies.json'
 
-// 电影数据
-const movies = ref([
-  {
-    id: 1,
-    title: "Inception",
-    poster: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"
-  },
-  {
-    id: 2,
-    title: "The Dark Knight",
-    poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
-  },
-  {
-    id: 3,
-    title: "Interstellar",
-    poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"
-  },
-  // 可以添加更多电影
-])
+// 使用精选电影列表
+const movies = ref(movieData.featured)
+
 // 获取最新文章
 const { data: posts } = await useAsyncData('posts', () => 
   queryContent('posts')

@@ -1,0 +1,54 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "title": "Inception",
+      "year": "2010",
+      "poster": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+      "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+      "director": "Christopher Nolan",
+      "doubanRating": 8.8
+    },
+    {
+      "id": 2,
+      "title": "The Dark Knight",
+      "year": "2008",
+      "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+      "director": "Christopher Nolan",
+      "doubanRating": 9.0
+    },
+    {
+      "id": 3,
+      "title": "Interstellar",
+      "year": "2014",
+      "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+      "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+      "director": "Christopher Nolan",
+      "doubanRating": 8.6
+    }
+  ],
+  "featured": [
+    {
+      "id": 1,
+      "title": "Inception",
+      "year": "2010",
+      "poster": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+      "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+      "director": "Christopher Nolan",
+      "doubanRating": 8.8,
+      "myRating": 9.5,
+      "comment": "这是我最喜欢的科幻电影之一，诺兰的叙事手法和视觉效果都令人惊叹。特别是那个旋转走廊的场景，至今难忘。"
+    },
+    {
+      "id": 2,
+      "title": "The Dark Knight",
+      "year": "2008",
+      "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+      "director": "Christopher Nolan",
+      "doubanRating": 9.0,
+      "comment": "希斯·莱杰的小丑演技太震撼了，完全重新定义了这个角色。整部电影的节奏和氛围都很紧张，是超级英雄电影的巅峰之作。"
+    }
+  ]
+} 
