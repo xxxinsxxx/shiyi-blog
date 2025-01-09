@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto p-4 md:p-6 lg:p-8">
+  <main class="container mx-16 p-4 md:p-6 lg:p-8">
     <!-- 返回按钮 -->
     <NuxtLink to="/" class="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground">
       <ArrowLeft class="w-4 h-4 mr-2" />

@@ -159,9 +159,25 @@
                 :to="post._path"
                 class="block p-4 rounded-lg hover:bg-muted/50 transition"
               >
-                <h3 class="font-medium">{{ post.title }}</h3>
-                <p class="text-sm text-muted-foreground line-clamp-2">{{ post.description }}</p>
-                <time class="text-xs text-muted-foreground">{{ formatDate(post.date) }}</time>
+                <h3 class="text-xl font-semibold">{{ post.title }}</h3>
+                <div class="flex items-center space-x-4 mt-2 mb-3 text-sm text-muted-foreground">
+                  <time class="flex items-center">
+                    <CalendarIcon class="w-4 h-4 mr-2" />
+                    {{ formatDate(post.date) }}
+                  </time>
+                  <div class="flex items-center space-x-2">
+                    <NuxtLink
+                      v-for="tag in post.tags"
+                      :key="tag"
+                      :to="`/posts?tag=${tag}`"
+                      class="hover:text-primary"
+                      @click.stop
+                    >
+                      #{{ tag }}
+                    </NuxtLink>
+                  </div>
+                </div>
+                <p class="text-muted-foreground line-clamp-2">{{ post.description }}</p>
               </NuxtLink>
             </div>
           </CardContent>
@@ -175,7 +191,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Github, Twitter, FileText, Film, Plus } from 'lucide-vue-next'
+import { Github, Twitter, FileText, Film, Plus, Calendar as CalendarIcon } from 'lucide-vue-next'
 import movieData from '@/data/movies.json'
 
 // 使用精选电影列表

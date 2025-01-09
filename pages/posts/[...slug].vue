@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto p-4 md:p-6 lg:p-8">
+  <main class="container  mx-16 p-4 md:p-6 lg:p-8">
     <!-- 返回按钮 -->
     <button 
       @click="router.back()" 
@@ -9,18 +9,28 @@
       Back
     </button>
 
-    <article class="prose dark:prose-invert mx-auto">
-      <header class="mb-8">
-        <h1 class="text-3xl font-bold">{{ data?.title }}</h1>
-        <div class="flex items-center space-x-4 text-muted-foreground mt-4">
-          <time v-if="data?.date">{{ formatDate(data.date) }}</time>
-          <template v-if="data?.description">
+    <article class="prose prose-lg dark:prose-invert max-w-none mx-auto">
+      <h1>{{ data?.title }}</h1>
+      
+      <!-- 文章信息 -->
+      <div class="flex items-center space-x-4 mt-2 mb-8 text-sm text-muted-foreground not-prose">
+        <time>{{ formatDate(data?.date) }}</time>
+        <div class="flex items-center space-x-2">
+          <NuxtLink
+            v-for="tag in data?.tags"
+            :key="tag"
+            :to="`/posts?tag=${tag}`"
+            class="hover:text-primary"
+          >
+            #{{ tag }}
+          </NuxtLink>
+        </div>
+        <template v-if="data?.description">
             <span>·</span>
             <span>{{ data.description }}</span>
           </template>
-        </div>
-      </header>
-      
+      </div>
+    
       <ContentRenderer v-if="data" :value="data" />
     </article>
   </main>
