@@ -212,4 +212,10 @@ function formatDate(date: string) {
     day: 'numeric'
   })
 }
+
+// 确保首页加载时隐藏悬浮播放器
+onMounted(() => {
+  const player = usePlayerStore()
+  player.setShowFloating(false)
+})
 </script>

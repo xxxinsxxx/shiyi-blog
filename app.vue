@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage></NuxtPage>
-    </NuxtLayout>
+  <div class="min-h-screen bg-background">
+    <NuxtPage />
+    <FloatingPlayer />
   </div>
 </template>
 
