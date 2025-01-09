@@ -1,8 +1,8 @@
 <template>
-  <main class="container  mx-16 p-4 md:p-6 lg:p-8">
+  <main class="container p-4 md:p-6 lg:p-8">
     <!-- 返回按钮 -->
-    <button 
-      @click="router.back()" 
+    <button
+      @click="router.back()"
       class="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground"
     >
       <ArrowLeft class="w-4 h-4 mr-2" />
@@ -11,11 +11,11 @@
 
     <article class="prose prose-lg dark:prose-invert max-w-none mx-auto">
       <h1>{{ data?.title }}</h1>
-      
+
       <!-- 文章信息 -->
-      <div class="flex items-center space-x-4 mt-2 mb-8 text-sm text-muted-foreground not-prose">
+      <div class="flex  flex-wrap items-center gap-4 mt-2 mb-8 text-sm text-muted-foreground not-prose">
         <time>{{ formatDate(data?.date) }}</time>
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
           <NuxtLink
             v-for="tag in data?.tags"
             :key="tag"
@@ -30,7 +30,7 @@
             <span>{{ data.description }}</span>
           </template>
       </div>
-    
+
       <ContentRenderer v-if="data" :value="data" />
     </article>
   </main>
@@ -63,7 +63,7 @@ function formatDate(date: string) {
     if (isNaN(dateObj.getTime())) {
       return 'No date'
     }
-    
+
     return dateObj.toLocaleDateString('zh-CN', {
       year: 'numeric',
       month: 'long',
@@ -80,4 +80,4 @@ function formatDate(date: string) {
 .prose {
   max-width: 65ch;
 }
-</style> 
+</style>

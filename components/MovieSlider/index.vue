@@ -1,25 +1,25 @@
 <template>
   <div class="relative overflow-hidden">
-    <button 
+    <button
       v-if="showLeftArrow"
-      @click="scroll('left')" 
+      @click="scroll('left')"
       class="absolute left-0 top-1/2 -translate-y-1/2 bg-background/80 p-2 rounded-full shadow-lg"
     >
       <ChevronLeft class="w-6 h-6" />
     </button>
-    
-    <div 
-      ref="scrollContainer" 
+
+    <div
+      ref="scrollContainer"
       class="flex space-x-4 overflow-x-auto pb-4 scroll-smooth"
       @scroll="updateArrows"
     >
       <div v-for="movie in movies" :key="movie.id" class="flex-none">
-        <button 
+        <button
           @click="openMovieDialog(movie)"
-          class="relative group"
+          class="relative group aspect-[2/3] overflow-hidden rounded-lg"
         >
-          <img 
-            :src="movie.poster" 
+          <img
+            :src="movie.poster"
             :alt="movie.title"
             class="w-32 h-48 object-cover rounded-lg transition group-hover:scale-105"
           />
@@ -33,16 +33,16 @@
       </div>
     </div>
 
-    <button 
+    <button
       v-if="showRightArrow"
-      @click="scroll('right')" 
+      @click="scroll('right')"
       class="absolute right-0 top-1/2 -translate-y-1/2 bg-background/80 p-2 rounded-full shadow-lg"
     >
       <ChevronRight class="w-6 h-6" />
     </button>
 
     <!-- 使用抽离出的对话框组件 -->
-    <MovieDialog 
+    <MovieDialog
       :movie="selectedMovie"
       @close="closeMovieDialog"
     />
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight, Star } from 'lucide-vue-next'
-import { 
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -85,7 +85,7 @@ const showRightArrow = ref(false)
 // 更新箭头显示状态
 function updateArrows() {
   if (!scrollContainer.value) return
-  
+
   const { scrollLeft, scrollWidth, clientWidth } = scrollContainer.value
   showLeftArrow.value = scrollLeft > 0
   showRightArrow.value = scrollLeft + clientWidth < scrollWidth - 1 // -1 是为了处理小数点误差

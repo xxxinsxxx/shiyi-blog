@@ -153,19 +153,19 @@
           </CardHeader>
           <CardContent>
             <div class="space-y-4">
-              <NuxtLink 
-                v-for="post in posts" 
-                :key="post._path" 
+              <NuxtLink
+                v-for="post in posts"
+                :key="post._path"
                 :to="post._path"
                 class="block p-4 rounded-lg hover:bg-muted/50 transition"
               >
                 <h3 class="text-xl font-semibold">{{ post.title }}</h3>
-                <div class="flex items-center space-x-4 mt-2 mb-3 text-sm text-muted-foreground">
+                <div class="flex flex-wrap gap-4 mt-2 mb-3 text-sm text-muted-foreground">
                   <time class="flex items-center">
                     <CalendarIcon class="w-4 h-4 mr-2" />
                     {{ formatDate(post.date) }}
                   </time>
-                  <div class="flex items-center space-x-2">
+                  <div class="flex flex-wrap items-center gap-2">
                     <NuxtLink
                       v-for="tag in post.tags"
                       :key="tag"
@@ -198,7 +198,7 @@ import movieData from '@/data/movies.json'
 const movies = ref(movieData.featured)
 
 // 获取最新文章
-const { data: posts } = await useAsyncData('posts', () => 
+const { data: posts } = await useAsyncData('posts', () =>
   queryContent('posts')
     .sort({ date: -1 }) // 按日期降序
     .limit(3) // 只显示最新的3篇

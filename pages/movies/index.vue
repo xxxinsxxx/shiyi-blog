@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-16 p-4 md:p-6 lg:p-8">
+  <main class="container p-4 md:p-6 lg:p-8">
     <!-- 返回按钮 -->
     <NuxtLink to="/" class="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground">
       <ArrowLeft class="w-4 h-4 mr-2" />
@@ -31,7 +31,7 @@
     </div>
 
     <!-- 使用抽离出的对话框组件 -->
-    <MovieDialog 
+    <MovieDialog
       :movie="selectedMovie"
       @close="closeMovieDialog"
     />
@@ -53,4 +53,4 @@ function openMovieDialog(movie:any) {
 function closeMovieDialog() {
   selectedMovie.value = null
 }
-</script> 
+</script>

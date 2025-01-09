@@ -1,5 +1,5 @@
 <template>
-  <main class="container  mx-16 p-4 md:p-6 lg:p-8">
+  <main class="container p-4 md:p-6 lg:p-8">
     <!-- 返回按钮 -->
     <NuxtLink to="/" class="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground">
       <ArrowLeft class="w-4 h-4 mr-2" />
@@ -30,13 +30,15 @@
           <h2 class="text-2xl font-semibold group-hover:text-primary transition-colors">
             {{ post.title }}
           </h2>
-          <div class="flex items-center space-x-4 mt-2 mb-3 text-sm text-muted-foreground">
+          <div class="flex flex-wrap gap-4 mt-2 mb-3 text-sm text-muted-foreground">
             <time class="flex items-center">
               <CalendarIcon class="w-4 h-4 mr-2" />
               {{ formatDate(post.date) }}
             </time>
-            <div class="flex items-center space-x-2">
-              <span v-for="tag in post.tags" :key="tag"
+            <div class="flex flex-wrap items-center gap-2">
+              <span
+                v-for="tag in post.tags"
+                :key="tag"
                 class="hover:text-primary cursor-pointer"
                 @click.prevent="selectTag(tag)"
               >

@@ -1,15 +1,15 @@
 <template>
   <Dialog :open="!!movie" @update:open="$emit('close')">
-    <DialogContent class="sm:max-w-[800px]">
-      <DialogHeader>
+    <DialogContent class="md:max-w-[800px] overflow-y-auto max-h-[90vh] max-w-[80vw]">
+      <DialogHeader class="relative">
         <DialogTitle>{{ movie?.title }}</DialogTitle>
         <DialogDescription>{{ movie?.year }}</DialogDescription>
-        <DialogClose class="focus:!ring-0" />
+        <DialogClose class="absolute right-0 top-0 focus:!ring-0" />
       </DialogHeader>
       
-      <div v-if="movie" class="grid md:grid-cols-[300px,1fr] gap-6 mt-4">
+      <div v-if="movie" class="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 mt-4">
         <!-- 电影海报 -->
-        <div class="aspect-[2/3] relative rounded-lg overflow-hidden">
+        <div class="aspect-[2/3] relative rounded-lg overflow-hidden w-[200px] mx-auto md:w-none">
           <img 
             :src="movie.poster" 
             :alt="movie.title" 
@@ -20,7 +20,7 @@
         <!-- 电影信息 -->
         <div class="space-y-6">
           <!-- 评分 -->
-          <div class="flex items-center space-x-6">
+          <div class="flex items-center justify-center md:justify-start space-x-6">
             <div class="flex items-center space-x-2">
               <img src="/douban.png" class="w-5 h-5" alt="douban" />
               <span class="text-lg font-semibold">{{ movie.doubanRating }}/10</span>
@@ -85,4 +85,4 @@ defineProps<{
 defineEmits<{
   (e: 'close'): void
 }>()
-</script> 
+</script>
