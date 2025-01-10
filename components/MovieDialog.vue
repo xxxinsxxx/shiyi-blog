@@ -1,19 +1,19 @@
 <template>
   <Dialog :open="!!movie" @update:open="$emit('close')">
-    <DialogContent class="md:max-w-[800px] overflow-y-auto max-h-[90vh] max-w-[80vw]">
+    <DialogContent class="md:max-w-[800px] overflow-y-auto max-h-[80vh] max-w-[80vw]">
       <DialogHeader class="relative">
         <DialogTitle>{{ movie?.title }}</DialogTitle>
         <DialogDescription>{{ movie?.year }}</DialogDescription>
         <DialogClose class="absolute right-0 top-0 focus:!ring-0" />
       </DialogHeader>
-      
+
       <div v-if="movie" class="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 mt-4">
         <!-- 电影海报 -->
         <div class="aspect-[2/3] relative rounded-lg overflow-hidden w-[200px] mx-auto md:w-none">
-          <img 
-            :src="movie.poster" 
-            :alt="movie.title" 
-            class="absolute inset-0 w-full h-full object-cover" 
+          <img
+            :src="movie.poster"
+            :alt="movie.title"
+            class="absolute inset-0 w-full h-full object-cover"
           />
         </div>
 
@@ -32,18 +32,18 @@
           </div>
 
           <div>
-            <h2 class="text-lg font-semibold mb-2">Overview</h2>
+            <h2 class="text-lg font-semibold mb-2">{{ $t('movie.overview') }}</h2>
             <p class="text-muted-foreground">{{ movie.description }}</p>
           </div>
 
           <div>
-            <h2 class="text-lg font-semibold mb-2">Director</h2>
+            <h2 class="text-lg font-semibold mb-2">{{ $t('movie.director') }}</h2>
             <p class="text-muted-foreground">{{ movie.director }}</p>
           </div>
 
           <!-- 我的评语 -->
           <div>
-            <h2 class="text-lg font-semibold mb-2">My Comment</h2>
+            <h2 class="text-lg font-semibold mb-2">{{ $t('movie.myComment') }}</h2>
             <p class="text-muted-foreground">{{ movie.comment }}</p>
           </div>
         </div>
@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { Star } from 'lucide-vue-next'
-import { 
+import {
   Dialog,
   DialogContent,
   DialogDescription,

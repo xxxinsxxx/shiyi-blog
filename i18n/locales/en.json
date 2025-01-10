@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Home",
+    "posts": "Posts",
+    "movies": "Movies",
+    "more": "More"
+  },
+  "home": {
+    "latestPosts": "Latest Posts",
+    "featuredMovies": "Featured Movies",
+    "nowPlaying": "Now Playing",
+    "recentActivity": "Recent Activity"
+  },
+  "post": {
+    "search": "Search posts",
+    "all": "All",
+    "articles": "Articles",
+    "backToHome": "Back to Home",
+    "backToPosts": "Back to Posts",
+    "back": "Back"
+  },
+  "movie": {
+    "director": "Director",
+    "overview": "Overview",
+    "myComment": "My Comment",
+    "doubanRating": "Douban Rating",
+    "myRating": "My Rating"
+  },
+  "footer": {
+    "about": "About",
+    "allRightsReserved": "All rights reserved"
+  }
+} 

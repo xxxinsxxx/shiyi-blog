@@ -3,10 +3,10 @@
     <!-- 返回按钮 -->
     <NuxtLink to="/" class="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground">
       <ArrowLeft class="w-4 h-4 mr-2" />
-      Back to Home
+      {{ $t('post.backToHome') }}
     </NuxtLink>
 
-    <h1 class="text-3xl font-bold mb-8">Articles</h1>
+    <h1 class="text-3xl font-bold mb-8">{{ $t('post.articles') }}</h1>
 
     <!-- 搜索和标签筛选 -->
     <PostsFilter

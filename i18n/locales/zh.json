@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "首页",
+    "posts": "文章",
+    "movies": "电影",
+    "more": "更多"
+  },
+  "home": {
+    "latestPosts": "最新文章",
+    "featuredMovies": "我最爱的电影",
+    "nowPlaying": "正在播放",
+    "recentActivity": "最近活动"
+  },
+  "post": {
+    "search": "搜索文章",
+    "all": "全部",
+    "articles": "文章",
+    "backToHome": "返回首页",
+    "backToPosts": "返回文章列表",
+    "back": "返回"
+  },
+  "movie": {
+    "director": "导演",
+    "overview": "简介",
+    "myComment": "我的评语",
+    "doubanRating": "豆瓣评分",
+    "myRating": "我的评分"
+  },
+  "footer": {
+    "about": "关于",
+    "allRightsReserved": "版权所有"
+  }
+} 

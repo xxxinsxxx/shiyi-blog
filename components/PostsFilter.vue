@@ -5,7 +5,7 @@
       <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
       <Input
         v-model="searchQuery"
-        placeholder="Search posts..."
+        :placeholder="$t('post.search')"
         class="pl-9"
         @input="$emit('update:search', searchQuery)"
       />
@@ -22,7 +22,7 @@
         ]"
         @click="$emit('update:selectedTag', null)"
       >
-        All
+        {{ $t('post.all') }}
       </Button>
       <Button
         v-for="tag in tags"

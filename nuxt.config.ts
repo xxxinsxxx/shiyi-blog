@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
   modules: ['@nuxt/content', // 添加 shadcn-vue
   '@nuxtjs/tailwindcss', // 添加这行
-  '@nuxtjs/color-mode', 'shadcn-nuxt', '@pinia/nuxt'],
+  '@nuxtjs/color-mode', 'shadcn-nuxt', '@pinia/nuxt', '@nuxtjs/i18n'],
   primevue: {
     options: {
       unstyled: true
@@ -50,5 +50,24 @@ export default defineNuxtConfig({
   },
   imports: {
     dirs: ['stores']
-  }
+  },
+  i18n: {
+    langDir: 'locales',
+    locales: [
+      {
+        code: 'zh',
+        iso: 'zh-CN',
+        name: '中文',
+        file: 'zh.json',
+      },
+      {
+        code: 'en',
+        iso: 'en-US',
+        name: 'English',
+        file: 'en.json',
+      },
+    ],
+    defaultLocale: 'zh',
+    strategy: 'prefix_except_default',
+  },
 })

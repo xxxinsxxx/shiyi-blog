@@ -1,190 +1,195 @@
 <template>
-  <main class="container mx-auto p-4 md:p-6 lg:p-8">
-    <div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-4">
-      <!-- 左侧栏 -->
-      <div class="md:col-span-4 lg:col-span-4 space-y-4">
-        <!-- 个人信息 -->
-        <Card class="p-4">
-          <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
-            <Avatar class="w-24 h-24">
-              <AvatarImage src="/avatar.jpg" />
-              <AvatarFallback>Shiyi</AvatarFallback>
-            </Avatar>
-            <div class="text-center sm:text-left">
-              <h1 class="text-2xl font-bold">Shiyi</h1>
-              <p class="text-muted-foreground">Frontend Developer</p>
-            </div>
-          </div>
-        </Card>
-
-        <!-- 音乐播放器 -->
-        <Card>
-          <CardHeader>
-            <CardTitle>Now Playing</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <MusicWidget />
-          </CardContent>
-        </Card>
-
-        <!-- 社交媒体和图片 -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Card>
-            <CardContent class="p-4">
-              <div class="flex flex-col space-y-2">
-                <a href="https://github.com/yourusername" target="_blank">
-                  <Button variant="ghost" class="w-full justify-start">
-                    <Github class="w-5 h-5 mr-2" />
-                    Github
-                  </Button>
-                </a>
-                <a href="https://twitter.com/yourusername" target="_blank">
-                  <Button variant="ghost" class="w-full justify-start">
-                    <Twitter class="w-5 h-5 mr-2" />
-                    Twitter
-                  </Button>
-                </a>
+  <div class="min-h-screen flex flex-col">
+    <main class="container mx-auto p-4 md:p-6 lg:p-8 flex-grow">
+      <div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-4">
+        <!-- 左侧栏 -->
+        <div class="md:col-span-4 lg:col-span-4 space-y-4">
+          <!-- 个人信息 -->
+          <Card class="p-4">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+              <Avatar class="w-24 h-24">
+                <AvatarImage src="/avatar.jpg" />
+                <AvatarFallback>Shiyi</AvatarFallback>
+              </Avatar>
+              <div class="text-center sm:text-left">
+                <h1 class="text-2xl font-bold">Shiyi</h1>
+                <p class="text-muted-foreground">Frontend Developer</p>
               </div>
-            </CardContent>
+            </div>
           </Card>
-          <Card class="hidden sm:block">
-            <CardContent class="p-4">
-              <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-32 object-cover rounded-lg" />
-            </CardContent>
-          </Card>
-        </div>
-      </div>
 
-      <!-- 中间栏 -->
-      <div class="md:col-span-4 lg:col-span-4 flex flex-col gap-4">
-        <!-- 功能导航 -->
-        <div class="grid grid-cols-3 gap-4">
-          <NuxtLink to="/posts" class="block">
-            <Card class="hover:bg-muted/50 transition h-full">
-              <CardContent class="p-4 text-center">
-                <FileText class="w-6 h-6 mx-auto mb-2" />
-                <span>Articles</span>
-              </CardContent>
-            </Card>
-          </NuxtLink>
-          <NuxtLink to="/movies" class="block">
-            <Card class="hover:bg-muted/50 transition h-full">
-              <CardContent class="p-4 text-center">
-                <Film class="w-6 h-6 mx-auto mb-2" />
-                <span>Movies</span>
-              </CardContent>
-            </Card>
-          </NuxtLink>
-          <Card class="hover:bg-muted/50 transition h-full">
-            <CardContent class="p-4 text-center">
-              <Plus class="w-6 h-6 mx-auto mb-2" />
-              <span>More</span>
-            </CardContent>
-          </Card>
-        </div>
-
-        <!-- 文字内容 -->
-        <Card class="flex-grow">
-          <CardContent class="p-6 h-full">
-            <p class="text-muted-foreground">
-              这里是一段介绍文字，可以描述你自己或者你的网站。这是一个占位符文本，你可以替换成任何你想要展示的内容。
-            </p>
-          </CardContent>
-        </Card>
-
-        <!-- 底部图片 -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- 音乐播放器 -->
           <Card>
-            <CardContent class="p-4">
-              <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-48 object-cover rounded-lg" />
+            <CardHeader>
+              <CardTitle>{{ $t('home.nowPlaying') }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MusicWidget />
             </CardContent>
           </Card>
-          <Card class="hidden sm:block">
-            <CardContent class="p-4">
-              <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-48 object-cover rounded-lg" />
-            </CardContent>
-          </Card>
-        </div>
-      </div>
 
-      <!-- 右侧栏 -->
-      <div class="md:col-span-8 lg:col-span-4 lg:row-span-2 space-y-4">
-        <!-- 电影滚动封面 -->
-        <Card>
-          <CardHeader>
-            <CardTitle>Featured Movies</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <MovieSlider :movies="movies" />
-          </CardContent>
-        </Card>
-
-        <!-- 其他内容卡片 -->
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div class="space-y-4">
-              <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-muted rounded-full"></div>
-                <div>
-                  <h4 class="font-medium">Activity Title</h4>
-                  <p class="text-sm text-muted-foreground">Activity description</p>
+          <!-- 社交媒体和图片 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Card>
+              <CardContent class="p-4">
+                <div class="flex flex-col space-y-2">
+                  <a href="https://github.com/yourusername" target="_blank">
+                    <Button variant="ghost" class="w-full justify-start">
+                      <Github class="w-5 h-5 mr-2" />
+                      Github
+                    </Button>
+                  </a>
+                  <a href="https://twitter.com/yourusername" target="_blank">
+                    <Button variant="ghost" class="w-full justify-start">
+                      <Twitter class="w-5 h-5 mr-2" />
+                      Twitter
+                    </Button>
+                  </a>
                 </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+            <Card class="hidden sm:block">
+              <CardContent class="p-4">
+                <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-32 object-cover rounded-lg" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
-        <!-- 占位图片 -->
-        <Card class="hidden md:block">
-          <CardContent class="p-4">
-            <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-64 object-cover rounded-lg" />
-          </CardContent>
-        </Card>
-      </div>
+        <!-- 中间栏 -->
+        <div class="md:col-span-4 lg:col-span-4 flex flex-col gap-4">
+          <!-- 功能导航 -->
+          <div class="grid grid-cols-3 gap-4">
+            <NuxtLink to="/posts" class="block">
+              <Card class="hover:bg-muted/50 transition h-full">
+                <CardContent class="p-4 text-center">
+                  <FileText class="w-6 h-6 mx-auto mb-2" />
+                  <span>{{ $t('nav.posts') }}</span>
+                </CardContent>
+              </Card>
+            </NuxtLink>
+            <NuxtLink to="/movies" class="block">
+              <Card class="hover:bg-muted/50 transition h-full">
+                <CardContent class="p-4 text-center">
+                  <Film class="w-6 h-6 mx-auto mb-2" />
+                  <span>{{ $t('nav.movies') }}</span>
+                </CardContent>
+              </Card>
+            </NuxtLink>
+            <Card class="hover:bg-muted/50 transition h-full">
+              <CardContent class="p-4 text-center">
+                <Plus class="w-6 h-6 mx-auto mb-2" />
+                <span>{{ $t('nav.more') }}</span>
+              </CardContent>
+            </Card>
+          </div>
 
-      <!-- 最新文章 -->
-      <div class="md:col-span-8 lg:col-span-8 space-y-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Latest Posts</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div class="space-y-4">
-              <NuxtLink
-                v-for="post in posts"
-                :key="post._path"
-                :to="post._path"
-                class="block p-4 rounded-lg hover:bg-muted/50 transition"
-              >
-                <h3 class="text-xl font-semibold">{{ post.title }}</h3>
-                <div class="flex flex-wrap gap-4 mt-2 mb-3 text-sm text-muted-foreground">
-                  <time class="flex items-center">
-                    <CalendarIcon class="w-4 h-4 mr-2" />
-                    {{ formatDate(post.date) }}
-                  </time>
-                  <div class="flex flex-wrap items-center gap-2">
-                    <NuxtLink
-                      v-for="tag in post.tags"
-                      :key="tag"
-                      :to="`/posts?tag=${tag}`"
-                      class="hover:text-primary"
-                      @click.stop
-                    >
-                      #{{ tag }}
-                    </NuxtLink>
+          <!-- 文字内容 -->
+          <Card class="flex-grow">
+            <CardContent class="p-6 h-full">
+              <p class="text-muted-foreground">
+                这里是一段介绍文字，可以描述你自己或者你的网站。这是一个占位符文本，你可以替换成任何你想要展示的内容。
+              </p>
+            </CardContent>
+          </Card>
+
+          <!-- 底部图片 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Card>
+              <CardContent class="p-4">
+                <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-48 object-cover rounded-lg" />
+              </CardContent>
+            </Card>
+            <Card class="hidden sm:block">
+              <CardContent class="p-4">
+                <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-48 object-cover rounded-lg" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <!-- 右侧栏 -->
+        <div class="md:col-span-8 lg:col-span-4 lg:row-span-2 space-y-4">
+          <!-- 电影滚动封面 -->
+          <Card>
+            <CardHeader>
+              <CardTitle>{{ $t('home.featuredMovies') }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MovieSlider :movies="movies" />
+            </CardContent>
+          </Card>
+
+          <!-- 其他内容卡片 -->
+          <Card>
+            <CardHeader>
+              <CardTitle>{{ $t('home.recentActivity') }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div class="space-y-4">
+                <div class="flex items-center space-x-4">
+                  <div class="w-12 h-12 bg-muted rounded-full"></div>
+                  <div>
+                    <h4 class="font-medium">Activity Title</h4>
+                    <p class="text-sm text-muted-foreground">Activity description</p>
                   </div>
                 </div>
-                <p class="text-muted-foreground line-clamp-2">{{ post.description }}</p>
-              </NuxtLink>
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            </CardContent>
+          </Card>
+
+          <!-- 占位图片 -->
+          <Card class="hidden md:block">
+            <CardContent class="p-4">
+              <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-64 object-cover rounded-lg" />
+            </CardContent>
+          </Card>
+        </div>
+
+        <!-- 最新文章 -->
+        <div class="md:col-span-8 lg:col-span-8 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>{{ $t('home.latestPosts') }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div class="space-y-4">
+                <NuxtLink
+                  v-for="post in posts"
+                  :key="post._path"
+                  :to="post._path"
+                  class="block p-4 rounded-lg hover:bg-muted/50 transition"
+                >
+                  <h3 class="text-xl font-semibold">{{ post.title }}</h3>
+                  <div class="flex flex-wrap gap-4 mt-2 mb-3 text-sm text-muted-foreground">
+                    <time class="flex items-center">
+                      <CalendarIcon class="w-4 h-4 mr-2" />
+                      {{ formatDate(post.date) }}
+                    </time>
+                    <div class="flex flex-wrap items-center gap-2">
+                      <NuxtLink
+                        v-for="tag in post.tags"
+                        :key="tag"
+                        :to="`/posts?tag=${tag}`"
+                        class="hover:text-primary"
+                        @click.stop
+                      >
+                        #{{ tag }}
+                      </NuxtLink>
+                    </div>
+                  </div>
+                  <p class="text-muted-foreground line-clamp-2">{{ post.description }}</p>
+                </NuxtLink>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+    
+    <!-- 添加 Footer -->
+    <Footer />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -193,6 +198,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Github, Twitter, FileText, Film, Plus, Calendar as CalendarIcon } from 'lucide-vue-next'
 import movieData from '@/data/movies.json'
+import Footer from '@/components/Footer.vue'
 
 // 使用精选电影列表
 const movies = ref(movieData.featured)
@@ -215,7 +221,7 @@ function formatDate(date: string) {
 }
 
 // 确保首页加载时隐藏悬浮播放器
-onMounted(() => {
+onMounted(async () => {
   const player = usePlayerStore()
   player.setShowFloating(false)
 })

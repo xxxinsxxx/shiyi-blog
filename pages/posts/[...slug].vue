@@ -6,7 +6,7 @@
       class="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground"
     >
       <ArrowLeft class="w-4 h-4 mr-2" />
-      Back
+      {{ $t('post.back') }}
     </button>
 
     <article class="prose prose-lg dark:prose-invert max-w-none mx-auto">
@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import { ArrowLeft } from 'lucide-vue-next'
+const { locale } = useI18n()
 
 const router = useRouter()
 const { path } = useRoute()
@@ -64,7 +65,9 @@ function formatDate(date: string) {
       return 'No date'
     }
 
-    return dateObj.toLocaleDateString('zh-CN', {
+    console.log(locale.value)
+
+    return dateObj.toLocaleDateString(locale.value, {
       year: 'numeric',
       month: 'long',
       day: 'numeric'

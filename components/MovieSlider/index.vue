@@ -21,6 +21,7 @@
           <img
             :src="movie.poster"
             :alt="movie.title"
+             referrerpolicy="no-referrer"
             class="w-32 h-48 object-cover rounded-lg transition group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-end p-2 rounded-lg">
