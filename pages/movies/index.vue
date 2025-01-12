@@ -11,7 +11,7 @@
     <!-- 电影海报墙 -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       <button
-        v-for="movie in movies"
+        v-for="movie in displayedMovies"
         :key="movie.id"
         @click="openMovieDialog(movie)"
         class="group relative aspect-[2/3] overflow-hidden rounded-lg"
@@ -19,6 +19,7 @@
         <img
           :src="movie.poster"
           :alt="movie.title"
+          referrerpolicy="no-referrer"
           class="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-end p-4">
@@ -28,6 +29,15 @@
           </div>
         </div>
       </button>
+    </div>
+
+    <!-- 加载更多指示器 -->
+    <div 
+      v-if="hasMore" 
+      ref="loadMoreTrigger" 
+      class="py-8 text-center text-muted-foreground"
+    >
+      <span v-if="isLoading">Loading...</span>
     </div>
 
     <!-- 使用抽离出的对话框组件 -->
@@ -43,10 +53,52 @@ import { ArrowLeft } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import movieData from '@/data/movies.json'
 
-const movies = ref(movieData.movies)
+const PAGE_SIZE = 10
+const allMovies = ref(movieData.movies)
+const currentPage = ref(1)
+const isLoading = ref(false)
+const loadMoreTrigger = ref(null)
 const selectedMovie = ref(null)
 
-function openMovieDialog(movie:any) {
+// 计算当前显示的电影
+const displayedMovies = computed(() => {
+  return allMovies.value.slice(0, currentPage.value * PAGE_SIZE)
+})
+
+// 是否还有更多数据
+const hasMore = computed(() => {
+  return displayedMovies.value.length < allMovies.value.length
+})
+
+// 设置 Intersection Observer
+onMounted(() => {
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting && hasMore.value && !isLoading.value) {
+      loadMore()
+    }
+  }, {
+    rootMargin: '100px'
+  })
+
+  if (loadMoreTrigger.value) {
+    observer.observe(loadMoreTrigger.value)
+  }
+})
+
+// 加载更多数据
+async function loadMore() {
+  if (isLoading.value || !hasMore.value) return
+
+  isLoading.value = true
+  
+  // 模拟加载延迟
+  await new Promise(resolve => setTimeout(resolve, 500))
+  
+  currentPage.value++
+  isLoading.value = false
+}
+
+function openMovieDialog(movie: any) {
   selectedMovie.value = movie
 }
 

@@ -85,11 +85,16 @@
           </div>
 
           <!-- 文字内容 -->
-          <Card class="flex-grow">
-            <CardContent class="p-6 h-full">
-              <p class="text-muted-foreground">
-                这里是一段介绍文字，可以描述你自己或者你的网站。这是一个占位符文本，你可以替换成任何你想要展示的内容。
-              </p>
+          <Card class="flex-grow ">
+            <CardContent class="p-4 overflow-hidden">
+<!--              <div class=" h-full ">-->
+                <p class=" text-muted-foreground text-2xl whitespace-nowrap text-center md:text-left">
+                  有一段时间我们仰卧河底，<br/><br/>
+                  在另一个角度看时光流淌。<br/><br/>
+                  你将所有的远方称为河流。
+                </p>
+<!--              </div>-->
+
             </CardContent>
           </Card>
 
@@ -186,7 +191,7 @@
         </div>
       </div>
     </main>
-    
+
     <!-- 添加 Footer -->
     <Footer />
   </div>
@@ -201,7 +206,7 @@ import movieData from '@/data/movies.json'
 import Footer from '@/components/Footer.vue'
 
 // 使用精选电影列表
-const movies = ref(movieData.featured)
+const movies = ref(movieData.movies.slice(0,5))
 
 // 获取最新文章
 const { data: posts } = await useAsyncData('posts', () =>

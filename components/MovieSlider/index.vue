@@ -3,7 +3,7 @@
     <button
       v-if="showLeftArrow"
       @click="scroll('left')"
-      class="absolute left-0 top-1/2 -translate-y-1/2 bg-background/80 p-2 rounded-full shadow-lg"
+      class="absolute left-0 top-1/2 -translate-y-1/2 bg-background/80 p-2 rounded-full shadow-lg z-10"
     >
       <ChevronLeft class="w-6 h-6" />
     </button>
@@ -37,7 +37,7 @@
     <button
       v-if="showRightArrow"
       @click="scroll('right')"
-      class="absolute right-0 top-1/2 -translate-y-1/2 bg-background/80 p-2 rounded-full shadow-lg"
+      class="absolute right-0 top-1/2 -translate-y-1/2 bg-background/80 p-2 rounded-full shadow-lg  z-10"
     >
       <ChevronRight class="w-6 h-6" />
     </button>
