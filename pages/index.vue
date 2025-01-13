@@ -6,14 +6,15 @@
         <div class="md:col-span-4 lg:col-span-4 space-y-4">
           <!-- 个人信息 -->
           <Card class="p-4">
-            <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+            <div class="flex flex-col sm:flex-row items-center  space-y-4 sm:space-y-0 sm:space-x-4">
               <Avatar class="w-24 h-24">
                 <AvatarImage src="/avatar.jpg" />
                 <AvatarFallback>Shiyi</AvatarFallback>
               </Avatar>
-              <div class="text-center sm:text-left">
+              <div class="text-center sm:text-left flex flex-col justify-between">
                 <h1 class="text-2xl font-bold">Shiyi</h1>
                 <p class="text-muted-foreground">Frontend Developer</p>
+                <a class="text-muted-foreground" href="mailto:xxxinsxxx@qq.com">xxxinsxxx@qq.com</a>
               </div>
             </div>
           </Card>
@@ -49,8 +50,8 @@
               </CardContent>
             </Card>
             <Card class="hidden sm:block">
-              <CardContent class="p-4">
-                <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-32 object-cover rounded-lg" />
+              <CardContent class="p-0">
+                <img src="/assets/images/IMG_0055.png" alt="Placeholder" class="w-full h-32 object-cover rounded-lg" />
               </CardContent>
             </Card>
           </div>
@@ -86,13 +87,13 @@
 
           <!-- 文字内容 -->
           <Card class="flex-grow ">
-            <CardContent class="p-4 overflow-hidden">
+            <CardContent class="p-4 overflow-hidden h-full text-muted-foreground text-2xl whitespace-nowrap text-center md:text-left md:flex md:flex-col md:justify-between select-none">
 <!--              <div class=" h-full ">-->
-                <p class=" text-muted-foreground text-2xl whitespace-nowrap text-center md:text-left">
-                  有一段时间我们仰卧河底，<br/><br/>
-                  在另一个角度看时光流淌。<br/><br/>
-                  你将所有的远方称为河流。
-                </p>
+<!--                <div class=" ">-->
+                  <p class="justify-between flex"><span>有一段时间</span><span>我们仰卧河底，</span></p><br/>
+                  <p class="justify-between flex"><span>在另一个角度看</span><span>时光流淌。</span></p><br/>
+                  <p class="justify-between flex"><span>你将</span><span>所有的远方称为<span class="highlight" data-text="河流。" >河流。</span></span></p>
+<!--                </div>-->
 <!--              </div>-->
 
             </CardContent>
@@ -100,14 +101,14 @@
 
           <!-- 底部图片 -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Card>
-              <CardContent class="p-4">
-                <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-48 object-cover rounded-lg" />
+            <Card class=" bg-gradient-to-br from-[#027fff] from-50% to-[#4eeec2] to-125% h-48">
+              <CardContent  class="p-4 flex justify-center items-center h-full">
+                <img src="/assets/images/mario.png" alt="mario" class="w-16 h-16" />
               </CardContent>
             </Card>
-            <Card class="hidden sm:block">
-              <CardContent class="p-4">
-                <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-48 object-cover rounded-lg" />
+            <Card class="hidden sm:block bg-gradient-to-br from-[#14B1A1] from-10% to-[#6EEFC2] h-48">
+              <CardContent class="p-4 flex justify-center items-center  h-full">
+                <img src="/assets/images/poke-ball.png" alt="poke-ball" class="w-16 h-16" />
               </CardContent>
             </Card>
           </div>
@@ -133,10 +134,10 @@
             <CardContent>
               <div class="space-y-4">
                 <div class="flex items-center space-x-4">
-                  <div class="w-12 h-12 bg-muted rounded-full"></div>
+<!--                  <div class="w-12 h-12 bg-muted rounded-full"></div>-->
                   <div>
-                    <h4 class="font-medium">Activity Title</h4>
-                    <p class="text-sm text-muted-foreground">Activity description</p>
+                    <h4 class="font-medium">Wait More...</h4>
+                    <p class="text-sm text-muted-foreground"></p>
                   </div>
                 </div>
               </div>
@@ -145,8 +146,8 @@
 
           <!-- 占位图片 -->
           <Card class="hidden md:block">
-            <CardContent class="p-4">
-              <img src="/assets/images/placeholder.jpg" alt="Placeholder" class="w-full h-64 object-cover rounded-lg" />
+            <CardContent class="p-0">
+              <img src="/assets/images/IMG_0021.png" alt="Placeholder" class="w-full object-cover rounded-lg aspect-square" />
             </CardContent>
           </Card>
         </div>
@@ -231,3 +232,56 @@ onMounted(async () => {
   player.setShowFloating(false)
 })
 </script>
+<style scoped lang="scss" >
+.highlight{
+  display: inline-block;
+  position: relative;
+  z-index: 0;
+  &:before{
+    content: "";
+    background-image: linear-gradient(#e4f1f7, #e4f1f7);
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 100% 100%;
+    height: 0.5em;
+    left: -0.125em;
+    bottom:0;
+    z-index: -1;
+    border-radius: 9px;
+    padding-inline: .125em;
+    //transform: translateY(-50%);
+    width: 100%;
+    opacity: 1;
+    position: absolute;
+    transition: width 0.5s ease-out, opacity .2s ease;
+    transition-delay: calc(0.5s* 0);
+    animation: animate 1s;
+  }
+  &:after{
+    content: attr(data-text);
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #4286ee;
+    width: 100%;
+    opacity: 1;
+    position: absolute;
+    transition: width 0.5s ease-out, opacity .2s ease;
+    transition-delay: calc(0.5s* 0);
+    animation: animate 1s;
+  }
+  @keyframes animate {
+    from {
+      //transform: translate(-50%, -50%) scale(0);
+      width: 0;
+      opacity: 0;
+    }
+    to {
+      //transform: translate(-50%, -50%) scale(1);
+      width: 100%;
+      opacity: 1;
+    }
+  }
+}
+</style>

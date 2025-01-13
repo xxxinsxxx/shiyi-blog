@@ -30,7 +30,14 @@ export const usePlayerStore = defineStore('player', {
         artist: "Billie Eilish",
         cover: "/WILDFLOWER-Billie Eilish.jpg",
         source: "/WILDFLOWER-Billie Eilish.mp3",
-      }
+      },
+      {
+        id: 2,
+        title: "591",
+        artist: "郑宜农",
+        cover: "/591-郑宜农.jpg",
+        source: "/591-郑宜农.mp3",
+      },
     ]
   }),
 
@@ -39,15 +46,15 @@ export const usePlayerStore = defineStore('player', {
       if (process.client && !this.audio) {
         this.audio = new Audio()
         this.audio.src = this.currentTrack.source
-        
+
         this.audio.addEventListener('timeupdate', () => {
           this.currentTime = this.audio?.currentTime || 0
         })
-        
+
         this.audio.addEventListener('loadedmetadata', () => {
           this.duration = this.audio?.duration || 0
         })
-        
+
         this.audio.addEventListener('ended', this.nextTrack)
       }
     },
@@ -56,7 +63,7 @@ export const usePlayerStore = defineStore('player', {
       if (!this.audio) {
         this.initAudio()
       }
-      
+
       if (this.isPlaying) {
         this.audio?.pause()
       } else {
