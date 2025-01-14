@@ -239,7 +239,7 @@ onMounted(async () => {
   z-index: 0;
   &:before{
     content: "";
-    background-image: linear-gradient(#e4f1f7, #e4f1f7);
+    background-image: linear-gradient(#a1d8f2, #a1d8f2);
     background-repeat: no-repeat;
     background-position: 0;
     background-size: 100% 100%;
@@ -263,7 +263,7 @@ onMounted(async () => {
     left: 0;
     overflow: hidden;
     white-space: nowrap;
-    color: #4286ee;
+    color: #2a7af5;
     width: 100%;
     opacity: 1;
     position: absolute;
