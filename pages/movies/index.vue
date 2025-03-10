@@ -20,7 +20,9 @@
           :src="movie.poster"
           :alt="movie.title"
           referrerpolicy="no-referrer"
+          loading="lazy"
           class="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"
+          @error="handleImageError($event, movie)"
         />
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-end p-4">
           <div class="text-white">
@@ -38,6 +40,7 @@
       class="py-8 text-center text-muted-foreground"
     >
       <span v-if="isLoading">Loading...</span>
+      <span v-else>{{ $t('common.loadMore') }}</span>
     </div>
 
     <!-- 使用抽离出的对话框组件 -->
@@ -59,6 +62,7 @@ const currentPage = ref(1)
 const isLoading = ref(false)
 const loadMoreTrigger = ref(null)
 const selectedMovie = ref(null)
+const failedImages = ref(new Set())
 
 // 计算当前显示的电影
 const displayedMovies = computed(() => {
@@ -69,6 +73,47 @@ const displayedMovies = computed(() => {
 const hasMore = computed(() => {
   return displayedMovies.value.length < allMovies.value.length
 })
+
+// 处理图片加载失败
+function handleImageError(event: Event, movie: any) {
+  console.error(`Failed to load image for movie: ${movie.title}`)
+  failedImages.value.add(movie.id)
+  
+  // 尝试重新加载图片
+  const img = event.target as HTMLImageElement
+  if (!img.dataset.retried) {
+    img.dataset.retried = 'true'
+    setTimeout(() => {
+      img.src = movie.poster + '?retry=' + new Date().getTime()
+    }, 1000)
+  }
+}
+
+// 加载更多电影
+function loadMore() {
+  if (isLoading.value || !hasMore.value) return
+  
+  isLoading.value = true
+  
+  // 模拟网络请求延迟
+  setTimeout(() => {
+    currentPage.value++
+    isLoading.value = false
+    
+    // 确保新加载的图片能够正确显示
+    nextTick(() => {
+      // 在下一个渲染周期检查新加载的图片
+      const newImages = document.querySelectorAll('img[loading="lazy"]')
+      newImages.forEach(img => {
+        // 强制浏览器重新评估图片是否在视口中
+        img.style.visibility = 'hidden'
+        setTimeout(() => {
+          img.style.visibility = 'visible'
+        }, 10)
+      })
+    })
+  }, 500)
+}
 
 // 设置 Intersection Observer
 onMounted(() => {
@@ -84,19 +129,6 @@ onMounted(() => {
     observer.observe(loadMoreTrigger.value)
   }
 })
-
-// 加载更多数据
-async function loadMore() {
-  if (isLoading.value || !hasMore.value) return
-
-  isLoading.value = true
-  
-  // 模拟加载延迟
-  await new Promise(resolve => setTimeout(resolve, 500))
-  
-  currentPage.value++
-  isLoading.value = false
-}
 
 function openMovieDialog(movie: any) {
   selectedMovie.value = movie

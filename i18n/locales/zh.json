@@ -29,5 +29,8 @@
   "footer": {
     "about": "关于",
     "allRightsReserved": "版权所有"
+  },
+  "common": {
+    "loadMore": "加载更多"
   }
 } 

@@ -29,5 +29,8 @@
   "footer": {
     "about": "About",
     "allRightsReserved": "All rights reserved"
+  },
+  "common": {
+    "loadMore": "Load More"
   }
 } 
