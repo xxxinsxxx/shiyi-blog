@@ -31,6 +31,8 @@
     "allRightsReserved": "All rights reserved"
   },
   "common": {
-    "loadMore": "Load More"
+    "loadMore": "Load More",
+    "imageLoadError": "image load error",
+    "loading": "Loading..."
   }
-} 
+}

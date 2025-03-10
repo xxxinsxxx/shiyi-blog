@@ -31,6 +31,8 @@
     "allRightsReserved": "版权所有"
   },
   "common": {
-    "loadMore": "加载更多"
+    "loadMore": "加载更多",
+    "imageLoadError": "图片加载失败",
+    "loading": "加载中..."
   }
-} 
+}

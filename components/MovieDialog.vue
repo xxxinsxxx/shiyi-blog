@@ -20,7 +20,7 @@
           <img
             :src="movie.poster"
             :alt="movie.title"
-            class="absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-cover movie-poster-img"
             referrerpolicy="no-referrer"
             @load="handleImageLoad"
             @error="handleImageError"
@@ -116,16 +116,56 @@ function handleImageError() {
   isImageLoading.value = false
   imageError.value = true
   
-  // 可选：尝试使用备用图片或重试加载
+  // 尝试重新加载图片
   if (props.movie && !props.movie.poster.includes('retry')) {
+    const originalPoster = props.movie.poster
     setTimeout(() => {
       if (props.movie) {
-        // 这里我们不能直接修改 props，但可以通过事件通知父组件
-        // 或者在实际应用中，你可能会使用其他方式处理
-        imageError.value = false
-        isImageLoading.value = true
+        // 创建新的图片元素进行预加载
+        const preloadImg = new Image()
+        const newSrc = originalPoster + '?retry=' + new Date().getTime()
+        
+        preloadImg.onload = () => {
+          // 预加载成功，更新状态并设置新的src
+          if (props.movie) {
+            imageError.value = false
+            isImageLoading.value = false
+            
+            // 找到当前图片元素并更新src
+            const imgElement = document.querySelector('.movie-poster-img')
+            if (imgElement) {
+              imgElement.setAttribute('src', newSrc)
+            }
+          }
+        }
+        
+        preloadImg.onerror = () => {
+          // 预加载失败，保持错误状态
+          imageError.value = true
+          isImageLoading.value = false
+        }
+        
+        // 开始预加载
+        preloadImg.src = newSrc
       }
     }, 1000)
+  }
+}
+
+// 主动重试加载图片
+function retryLoadImage() {
+  if (!props.movie) return
+  
+  imageError.value = false
+  isImageLoading.value = true
+  
+  // 创建新的图片URL（添加时间戳避免缓存）
+  const newSrc = props.movie.poster + '?retry=' + new Date().getTime()
+  
+  // 找到当前图片元素并更新src
+  const imgElement = document.querySelector('.movie-poster-img')
+  if (imgElement) {
+    imgElement.setAttribute('src', newSrc)
   }
 }
 </script>

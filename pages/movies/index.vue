@@ -36,12 +36,12 @@
     </div>
 
     <!-- 加载更多指示器 -->
-    <div 
-      v-if="hasMore" 
-      ref="loadMoreTrigger" 
+    <div
+      v-if="hasMore"
+      ref="loadMoreTrigger"
       class="py-8 text-center text-muted-foreground"
     >
-      <span v-if="isLoading">Loading...</span>
+      <span v-if="isLoading">{{ $t('common.loading') }}</span>
       <span v-else>{{ $t('common.loadMore') }}</span>
     </div>
 
@@ -80,7 +80,7 @@ const hasMore = computed(() => {
 function handleImageError(event: Event, movie: any) {
   console.error(`Failed to load image for movie: ${movie.title}`)
   failedImages.value.add(movie.id)
-  
+
   // 尝试重新加载图片
   const img = event.target as HTMLImageElement
   if (!img.dataset.retried) {
@@ -102,9 +102,9 @@ function handleImageLoad(event: Event) {
 // 加载更多电影
 function loadMore() {
   if (isLoading.value || !hasMore.value) return
-  
+
   isLoading.value = true
-  
+
   // 模拟网络请求延迟
   setTimeout(() => {
     currentPage.value++
