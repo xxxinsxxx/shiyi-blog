@@ -10,6 +10,7 @@
       <div v-if="movie" class="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 mt-4">
         <!-- 电影海报 -->
         <div class="aspect-[2/3] relative rounded-lg overflow-hidden w-[200px] mx-auto md:w-full">
+          <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
           <img
             :src="movie.poster"
             :alt="movie.title"
