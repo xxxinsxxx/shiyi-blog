@@ -10,11 +10,21 @@
       <div v-if="movie" class="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 mt-4">
         <!-- 电影海报 -->
         <div class="aspect-[2/3] relative rounded-lg overflow-hidden w-[200px] mx-auto md:w-full">
+          <div class="absolute inset-0 bg-gray-200 animate-pulse" v-if="isImageLoading"></div>
+          <div v-if="imageError" class="absolute inset-0 flex items-center justify-center bg-gray-100">
+            <div class="text-center p-4">
+              <ImageOff class="w-10 h-10 mx-auto text-gray-400 mb-2" />
+              <p class="text-sm text-gray-500">{{ $t('common.imageLoadError') || '图片加载失败' }}</p>
+            </div>
+          </div>
           <img
             :src="movie.poster"
             :alt="movie.title"
             class="absolute inset-0 w-full h-full object-cover"
             referrerpolicy="no-referrer"
+            @load="handleImageLoad"
+            @error="handleImageError"
+            :class="{ 'opacity-0': isImageLoading || imageError }"
           />
         </div>
 
@@ -55,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { Star } from 'lucide-vue-next'
+import { Star, ImageOff } from 'lucide-vue-next'
 import {
   Dialog,
   DialogContent,
@@ -79,11 +89,57 @@ interface Movie {
   comment: string
 }
 
-defineProps<{
+const props = defineProps<{
   movie: Movie | null
 }>()
 
 defineEmits<{
   (e: 'close'): void
 }>()
+
+const isImageLoading = ref(true)
+const imageError = ref(false)
+
+// 监听 movie 变化，重置图片状态
+watch(() => props.movie, () => {
+  if (props.movie) {
+    isImageLoading.value = true
+    imageError.value = false
+  }
+}, { immediate: true })
+
+function handleImageLoad() {
+  isImageLoading.value = false
+}
+
+function handleImageError() {
+  isImageLoading.value = false
+  imageError.value = true
+  
+  // 可选：尝试使用备用图片或重试加载
+  if (props.movie && !props.movie.poster.includes('retry')) {
+    setTimeout(() => {
+      if (props.movie) {
+        // 这里我们不能直接修改 props，但可以通过事件通知父组件
+        // 或者在实际应用中，你可能会使用其他方式处理
+        imageError.value = false
+        isImageLoading.value = true
+      }
+    }, 1000)
+  }
+}
 </script>
+<style scoped>
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+</style>
