@@ -10,21 +10,14 @@
       <div v-if="movie" class="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 mt-4">
         <!-- 电影海报 -->
         <div class="aspect-[2/3] relative rounded-lg overflow-hidden w-[200px] mx-auto md:w-full">
-          <div class="absolute inset-0 bg-gray-200 animate-pulse" v-if="isImageLoading"></div>
-          <div v-if="imageError" class="absolute inset-0 flex items-center justify-center bg-gray-100">
-            <div class="text-center p-4">
-              <ImageOff class="w-10 h-10 mx-auto text-gray-400 mb-2" />
-              <p class="text-sm text-gray-500">{{ $t('common.imageLoadError') || '图片加载失败' }}</p>
-            </div>
-          </div>
           <img
             :src="movie.poster"
             :alt="movie.title"
-            class="absolute inset-0 w-full h-full object-cover movie-poster-img"
+            class="absolute inset-0 w-full h-full object-cover transition group-hover:scale-105 opacity-0"
             referrerpolicy="no-referrer"
-            @load="handleImageLoad"
-            @error="handleImageError"
-            :class="{ 'opacity-0': isImageLoading || imageError }"
+            loading="lazy"
+            @error="handleImageError($event, movie)"
+            @load="handleImageLoad($event)"
           />
         </div>
 
@@ -97,77 +90,27 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
-const isImageLoading = ref(true)
-const imageError = ref(false)
-
-// 监听 movie 变化，重置图片状态
-watch(() => props.movie, () => {
-  if (props.movie) {
-    isImageLoading.value = true
-    imageError.value = false
-  }
-}, { immediate: true })
-
-function handleImageLoad() {
-  isImageLoading.value = false
+function handleImageLoad(event: Event) {
+  const img = event.target as HTMLImageElement
+  // 使用淡入效果显示图片
+  img.style.transition = 'opacity 0.3s ease-in-out'
+  img.style.opacity = '1'
 }
 
-function handleImageError() {
-  isImageLoading.value = false
-  imageError.value = true
-  
-  // 尝试重新加载图片
-  if (props.movie && !props.movie.poster.includes('retry')) {
-    const originalPoster = props.movie.poster
-    setTimeout(() => {
-      if (props.movie) {
-        // 创建新的图片元素进行预加载
-        const preloadImg = new Image()
-        const newSrc = originalPoster + '?retry=' + new Date().getTime()
-        
-        preloadImg.onload = () => {
-          // 预加载成功，更新状态并设置新的src
-          if (props.movie) {
-            imageError.value = false
-            isImageLoading.value = false
-            
-            // 找到当前图片元素并更新src
-            const imgElement = document.querySelector('.movie-poster-img')
-            if (imgElement) {
-              imgElement.setAttribute('src', newSrc)
-            }
-          }
-        }
-        
-        preloadImg.onerror = () => {
-          // 预加载失败，保持错误状态
-          imageError.value = true
-          isImageLoading.value = false
-        }
-        
-        // 开始预加载
-        preloadImg.src = newSrc
-      }
-    }, 1000)
-  }
-}
+// 处理图片加载失败
+  function handleImageError(event: Event, movie: any) {
+    console.error(`Failed to load image for movie: ${movie.title}`)
 
-// 主动重试加载图片
-function retryLoadImage() {
-  if (!props.movie) return
-  
-  imageError.value = false
-  isImageLoading.value = true
-  
-  // 创建新的图片URL（添加时间戳避免缓存）
-  const newSrc = props.movie.poster + '?retry=' + new Date().getTime()
-  
-  // 找到当前图片元素并更新src
-  const imgElement = document.querySelector('.movie-poster-img')
-  if (imgElement) {
-    imgElement.setAttribute('src', newSrc)
+    // 尝试重新加载图片
+    const img = event.target as HTMLImageElement
+    if (!img.dataset.retried) {
+      img.dataset.retried = 'true'
+      setTimeout(() => {
+        img.src = movie.poster + '?retry=' + new Date().getTime()
+      }, 1000)
+    }
   }
-}
+
 </script>
 <style scoped>
 @keyframes pulse {
