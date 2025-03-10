@@ -16,13 +16,15 @@
         @click="openMovieDialog(movie)"
         class="group relative aspect-[2/3] overflow-hidden rounded-lg"
       >
+        <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
         <img
           :src="movie.poster"
           :alt="movie.title"
           referrerpolicy="no-referrer"
           loading="lazy"
-          class="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"
+          class="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105 opacity-0"
           @error="handleImageError($event, movie)"
+          @load="handleImageLoad($event)"
         />
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-end p-4">
           <div class="text-white">
@@ -89,6 +91,14 @@ function handleImageError(event: Event, movie: any) {
   }
 }
 
+// 处理图片加载成功
+function handleImageLoad(event: Event) {
+  const img = event.target as HTMLImageElement
+  // 使用淡入效果显示图片
+  img.style.transition = 'opacity 0.3s ease-in-out'
+  img.style.opacity = '1'
+}
+
 // 加载更多电影
 function loadMore() {
   if (isLoading.value || !hasMore.value) return
@@ -99,19 +109,6 @@ function loadMore() {
   setTimeout(() => {
     currentPage.value++
     isLoading.value = false
-    
-    // 确保新加载的图片能够正确显示
-    nextTick(() => {
-      // 在下一个渲染周期检查新加载的图片
-      const newImages = document.querySelectorAll('img[loading="lazy"]')
-      newImages.forEach(img => {
-        // 强制浏览器重新评估图片是否在视口中
-        img.style.visibility = 'hidden'
-        setTimeout(() => {
-          img.style.visibility = 'visible'
-        }, 10)
-      })
-    })
   }, 500)
 }
 
@@ -138,3 +135,18 @@ function closeMovieDialog() {
   selectedMovie.value = null
 }
 </script>
+
+<style scoped>
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+</style>
