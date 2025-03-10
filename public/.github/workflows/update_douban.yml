@@ -1,0 +1,32 @@
+name: Update Douban Movies
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨 2 点自动运行
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch and Update Douban Movies
+        run: python update_douban.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add public/movies.json
+          git commit -m "Auto-update Douban movies $(date +'%Y-%m-%d')" || exit 0
+          git push
