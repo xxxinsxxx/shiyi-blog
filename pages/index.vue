@@ -203,11 +203,11 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Github, Twitter, FileText, Film, Plus, Calendar as CalendarIcon } from 'lucide-vue-next'
-import movieData from '@/data/movies.json'
+import movieData from '@/data/top-movies.json'
 import Footer from '@/components/Footer.vue'
 
 // 使用精选电影列表
-const movies = ref(movieData.movies.slice(0,5))
+const movies = ref(movieData.movies)
 
 // 获取最新文章
 const { data: posts } = await useAsyncData('posts', () =>
