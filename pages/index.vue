@@ -101,16 +101,40 @@
 
           <!-- 底部图片 -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Card class=" bg-gradient-to-br from-[#027fff] from-50% to-[#4eeec2] to-125% h-48">
-              <CardContent  class="p-4 flex justify-center items-center h-full">
+<!--            <Card class=" bg-gradient-to-br from-[#027fff] from-50% to-[#4eeec2] to-125% h-48">-->
+<!--              <CardContent  class="p-4 flex justify-center items-center h-full">-->
+<!--                <img src="/assets/images/mario.png" alt="mario" class="w-16 h-16" />-->
+<!--              </CardContent>-->
+<!--            </Card>-->
+          <TiltedCard
+              useGradientBackground
+              gradientBackground="linear-gradient(45deg, #027fff 50%, #4eeec2 125%)"
+              displayOverlayContent
+              container-height="192px"
+              image-height="192px"
+              image-width="192px"
+            >
+              <template #overlayContent>
                 <img src="/assets/images/mario.png" alt="mario" class="w-16 h-16" />
-              </CardContent>
-            </Card>
-            <Card class="hidden sm:block bg-gradient-to-br from-[#14B1A1] from-10% to-[#6EEFC2] h-48">
-              <CardContent class="p-4 flex justify-center items-center  h-full">
+              </template>
+            </TiltedCard>
+            <TiltedCard
+                useGradientBackground
+                gradientBackground="linear-gradient(45deg, #14B1A1 10%, #6EEFC2 125%)"
+                displayOverlayContent
+                container-height="192px"
+                image-height="192px"
+                image-width="192px"
+            >
+              <template #overlayContent>
                 <img src="/assets/images/poke-ball.png" alt="poke-ball" class="w-16 h-16" />
-              </CardContent>
-            </Card>
+              </template>
+            </TiltedCard>
+<!--            <Card class="hidden sm:block bg-gradient-to-br from-[#14B1A1] from-10% to-[#6EEFC2] h-48">-->
+<!--              <CardContent class="p-4 flex justify-center items-center  h-full">-->
+<!--                <img src="/assets/images/poke-ball.png" alt="poke-ball" class="w-16 h-16" />-->
+<!--              </CardContent>-->
+<!--            </Card>-->
           </div>
         </div>
 
@@ -205,6 +229,7 @@ import { Button } from '@/components/ui/button'
 import { Github, Twitter, FileText, Film, Plus, Calendar as CalendarIcon } from 'lucide-vue-next'
 import movieData from '@/data/top-movies.json'
 import Footer from '@/components/Footer.vue'
+import TiltedCard from "~/components/ReactBitComponents/TiltedCard.vue";
 
 // 使用精选电影列表
 const movies = ref(movieData.movies)
