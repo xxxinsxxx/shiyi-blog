@@ -1,12 +1,14 @@
 const animate = require("tailwindcss-animate")
 const typography = require("@tailwindcss/typography")
+import { setupInspiraUI } from "@inspira-ui/plugins";
+
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   safelist: ["dark"],
   prefix: "",
-  
+
   theme: {
     container: {
       center: true,
@@ -83,5 +85,5 @@ module.exports = {
       },
     },
   },
-  plugins: [typography, animate],
+  plugins: [typography, animate, setupInspiraUI],
 }

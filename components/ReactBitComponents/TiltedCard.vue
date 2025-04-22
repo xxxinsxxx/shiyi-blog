@@ -19,13 +19,12 @@
     </div>
 
     <div
-      class="relative"
+      class="relative transition duration-700 ease-out"
       :style="{
         width: imageWidth,
         height: imageHeight,
         transform: `rotateX(${rotateXValue}deg) rotateY(${rotateYValue}deg) scale(${scaleValue})`,
         transformStyle: 'preserve-3d',
-        transition: 'transform 0.1s ease-out'
       }"
     >
       <!-- 使用图片或渐变背景 -->
@@ -112,7 +111,7 @@ const props = withDefaults(defineProps<TiltedCardProps>(), {
   imageHeight: "300px",
   imageWidth: "300px",
   scaleOnHover: 1,
-  rotateAmplitude: 14,
+  rotateAmplitude: 30,
   showMobileWarning: true,
   showTooltip: true,
   overlayContent: null,
