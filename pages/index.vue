@@ -101,7 +101,7 @@
             </Card>
 
             <!-- 底部图片 -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="hidden lg:grid lg:grid-cols-2 gap-4">
               <!--            <Card class=" bg-gradient-to-br from-[#027fff] from-50% to-[#4eeec2] to-125% h-48">-->
               <!--              <CardContent  class="p-4 flex justify-center items-center h-full">-->
               <!--                <img src="/assets/images/mario.png" alt="mario" class="w-16 h-16" />-->

@@ -11,12 +11,6 @@
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <div
-      v-if="showMobileWarning"
-      class="absolute top-4 text-center text-sm block sm:hidden"
-    >
-      This effect is not optimized for mobile. Check on desktop.
-    </div>
 
     <div
       class="relative transition duration-700 ease-out"

@@ -2,7 +2,13 @@
   <Dialog :open="!!movie" @update:open="$emit('close')">
     <DialogContent class="md:max-w-[800px] overflow-y-auto max-h-[80vh] max-w-[80vw] rounded-lg">
       <DialogHeader class="relative">
-        <DialogTitle class="text-2xl">{{ movie?.title }}</DialogTitle>
+        <DialogTitle class="text-2xl relative">
+          <a v-if="movie?.url" :href="movie.url" target="_blank" rel="noopener noreferrer" class="relative inline-flex items-center hover:text-gray-500 transition-colors">
+            {{ movie?.title }}
+
+          </a>
+          <span v-else>{{ movie?.title }}</span>
+        </DialogTitle>
         <DialogDescription>{{ movie?.year }}</DialogDescription>
         <DialogClose class="absolute right-0 top-0 focus:!ring-0" />
       </DialogHeader>
@@ -59,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { Star, ImageOff } from 'lucide-vue-next'
+import { Star, ImageOff,Link } from 'lucide-vue-next'
 import {
   Dialog,
   DialogContent,
@@ -81,6 +87,7 @@ interface Movie {
   doubanRating: number
   myRating: number
   comment: string
+  url?: string // 添加可选的 url 属性
 }
 
 const props = defineProps<{
